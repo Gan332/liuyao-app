@@ -12,4 +12,9 @@ app/build
 app/*.iml
 app/release
 keystore.jks
-.gitignore
+node_modules/
+dist/
+/liuyao.html
+/assets/
+liuyao-app/app/src/main/assets/index.html
+liuyao-app/app/src/main/assets/assets/
