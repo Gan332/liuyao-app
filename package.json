@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build:web": "npm run build -w packages/web",
+    "build:android": "cd liuyao-app && ./gradlew assembleRelease",
+    "build:all": "npm run build:web && npm run build:android"
+  }
+}
