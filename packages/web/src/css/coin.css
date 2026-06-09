@@ -36,7 +36,6 @@
 .me-btn{width:32px;height:28px;border-radius:6px;border:1.5px solid var(--sep);background:var(--card);color:var(--sl);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;text-align:center}
 .me-btn.act{background:var(--primary);color:#fff;border-color:var(--primary)}
 .me-btn:hover:not(.act){border-color:var(--primary)}
-[data-theme="dark"] .hx-jg{background:#3a3a3c}
 [data-theme="dark"] .me-btn{background:#3a3a3c;color:var(--sl)}
 [data-theme="dark"] .me-btn:hover{background:#48484a}
 [data-theme="dark"] .me-btn.act{background:var(--primary);color:#fff}

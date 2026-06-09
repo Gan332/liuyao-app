@@ -24,7 +24,6 @@
 .hist-clear:hover{background:#fff0f0}
 [data-theme="dark"] .hist-clear:hover{background:#3a1a1a}
 [data-theme="dark"] .hist-panel{background:var(--card)}
-[data-theme="dark"] .nav-btn{background:var(--card);color:var(--tl)}
 .note-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
 .note-overlay.show{opacity:1;pointer-events:auto}
 .note-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.92);z-index:201;background:var(--card);border-radius:16px;padding:20px;width:calc(100% - 48px);max-width:360px;opacity:0;pointer-events:none;transition:all .3s;box-shadow:var(--sh-lg)}
