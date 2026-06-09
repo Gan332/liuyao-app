@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>六爻 · 周易占卜</title>
+<script type="module" src="./js/app.js"></script>
+</head>
+<body>
+<div class="c" id="app">
+
+<div class="nav">
+  <div class="nav-l">
+    <div class="nav-t">六爻</div>
+    <div class="nav-s">周易占卜</div>
+  </div>
+  <div class="nav-r">
+    <button class="nav-btn" id="histBtn" title="历史记录">📋</button>
+    <button class="nav-btn" id="dmBtn" title="深色模式">🌙</button>
+    <span class="nav-rg" id="stepI">静心·起卦</span>
+  </div>
+</div>
+
+<!-- ===== Toss Phase ===== -->
+<div id="tp">
+  <div class="cd" style="text-align:center">
+    <div style="font-size:14px;color:var(--sl);line-height:1.7;margin-bottom:6px;padding:6px 0">
+      默念所问之事 · 心诚则灵
+    </div>
+    <div class="mode-bar">
+      <button class="mode-btn act" data-mode="coin" id="modeCoin">🎲 铜钱起卦</button>
+      <button class="mode-btn" data-mode="manual" id="modeManual">✍️ 手动排盘</button>
+    </div>
+    <!-- Coin toss -->
+    <div id="coinArea">
+      <div class="coin-a" id="coinA">
+        <div><div class="coin heads" id="c0">⚭</div><div class="coin-r">正面</div></div>
+        <div><div class="coin heads" id="c1">⚭</div><div class="coin-r">正面</div></div>
+        <div><div class="coin heads" id="c2">⚭</div><div class="coin-r">正面</div></div>
+      </div>
+      <div id="tossR" class="hint" style="margin:6px 0;font-weight:500"></div>
+      <div class="toss-a">
+        <button class="btn" id="tb">摇 卦</button>
+        <div class="hint" id="th">第 1 爻 · 初爻</div>
+      </div>
+    </div>
+    <!-- Manual entry -->
+    <div id="manualArea" class="h">
+      <div style="font-size:13px;color:var(--tl);margin:6px 0 10px">点击数字切换 6老阴 · 7少阳 · 8少阴 · 9老阳</div>
+      <div class="manual-a" id="manualLines"></div>
+      <button class="btn" id="manualBtn" style="margin-top:8px">成 卦</button>
+    </div>
+  </div>
+  <div class="cd" id="pc">
+    <div class="cdh">已得之爻</div>
+    <div class="yao-c" id="bl"><div class="emp">摇卦后显示</div></div>
+  </div>
+</div>
+
+<!-- ===== Reading Phase ===== -->
+<div id="rp" class="h">
+  <div class="cd anim af">
+    <div class="hx-h">
+      <div class="hx-num" id="rn">䷀ · 第一卦</div>
+      <div class="hx-zh" id="rzh">乾</div>
+      <div class="hx-py" id="rpy">qián</div>
+      <div class="hx-en" id="ren">创造</div>
+      <div class="hx-jg" id="rjg">天行健，君子以自强不息。</div>
+    </div>
+  </div>
+  <div class="cd anim af ad1 desc">
+    <div class="cdh">卦象解释</div>
+    <div class="desc-text" id="rdesc"></div>
+  </div>
+  <div class="cd anim af ad2">
+    <div class="cdh">六爻</div>
+    <div id="rlines"></div>
+    <div class="div"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0">
+      <div style="display:flex;gap:24px">
+        <div style="text-align:center"><div style="font-size:40px" id="uts">☰</div><div style="font-size:10px;color:var(--tl);margin-top:1px">上卦</div></div>
+        <div style="text-align:center"><div style="font-size:40px" id="lts">☰</div><div style="font-size:10px;color:var(--tl);margin-top:1px">下卦</div></div>
+      </div>
+      <div style="text-align:right;font-size:11px;color:var(--tl)">本卦</div>
+    </div>
+    <div id="ci" class="h ci"></div>
+    <div class="rd-actions">
+      <button class="rd-btn" id="shareBtn">📤 分享</button>
+      <button class="rd-btn" id="noteBtn">📝 备注</button>
+      <button class="rd-btn" id="saveBtn">💾 保存</button>
+    </div>
+  </div>
+  <div id="rs" class="h">
+    <div class="cd anim af ad3 sec-hx">
+      <div class="sec-hx-inner">
+        <div class="sec-hx-sym" id="rss">䷀</div>
+        <div class="sec-hx-info">
+          <div class="sec-hx-label">变卦</div>
+          <div class="sec-hx-name" id="rsn">坤</div>
+          <div class="sec-hx-py" id="rspy">kūn</div>
+        </div>
+      </div>
+      <div class="sec-hx-jg" id="rsjg">地势坤，君子以厚德载物。</div>
+    </div>
+  </div>
+  <div class="cd anim af ad4" style="padding:16px;text-align:center">
+    <button class="btn" id="rb" style="width:100%;max-width:280px">再摇一次</button>
+  </div>
+</div>
+</div>
+
+<!-- ===== History Panel ===== -->
+<div class="hist-overlay" id="histOverlay"></div>
+<div class="hist-panel" id="histPanel">
+  <div class="hist-head">
+    <h3>📋 历史记录</h3>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="hist-clear" id="histClear">清空</button>
+      <button class="hist-close" id="histClose">✕</button>
+    </div>
+  </div>
+  <div class="hist-handle"></div>
+  <div id="histList"></div>
+</div>
+
+<!-- ===== Note Modal ===== -->
+<div class="note-overlay" id="noteOverlay"></div>
+<div class="note-modal" id="noteModal">
+  <h3>📝 添加备注</h3>
+  <div class="note-tags">
+    <span class="note-tag" data-tag="事业">事业</span>
+    <span class="note-tag" data-tag="感情">感情</span>
+    <span class="note-tag" data-tag="财运">财运</span>
+    <span class="note-tag" data-tag="健康">健康</span>
+    <span class="note-tag" data-tag="学业">学业</span>
+    <span class="note-tag" data-tag="出行">出行</span>
+  </div>
+  <textarea id="noteText" placeholder="记录你的问题或感悟…"></textarea>
+  <div class="note-actions">
+    <button style="background:var(--bg);color:var(--sl)" id="noteCancel">取消</button>
+    <button style="background:var(--primary);color:#fff" id="noteSave">保存</button>
+  </div>
+</div>
+
+<!-- ===== Toast ===== -->
+<div class="toast" id="toast"></div>
+</body>
+</html>
