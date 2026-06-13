@@ -4,7 +4,8 @@ import { loadHistoryData, initHistory, addHistoryEntry, renderHistory } from './
 import { initTheme, toggleTheme, watchSystemTheme } from './theme.js';
 import { initToss, updateBuiltLines } from './toss.js';
 import { initManual } from './manual.js';
-import { showReading, resetReading, computeHexagram, computeChangedHexagram } from './reading.js';
+import { showReading, resetReading } from './reading.js';
+import { computeHexagram, computeChangedHexagram } from '@liuyao/engine';
 import { $, showToast } from './ui.js';
 
 // ===== State =====

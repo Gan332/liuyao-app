@@ -9,6 +9,9 @@
     "postbuild": "cp ../../dist/index.html ../../liuyao.html && rm -rf ../../assets && cp -r ../../dist/assets ../../ && cp ../../dist/index.html ../../liuyao-app/app/src/main/assets/ && rm -rf ../../liuyao-app/app/src/main/assets/assets && mkdir -p ../../liuyao-app/app/src/main/assets/assets && cp -r ../../dist/assets/* ../../liuyao-app/app/src/main/assets/assets/",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "@liuyao/engine": "*"
+  },
   "devDependencies": {
     "lightningcss": "^1.21.0",
     "vite": "^6.0.0"

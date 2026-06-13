@@ -1,6 +1,7 @@
 import { loadHistory, saveHistory, removeEntry, clearAll } from './storage.js';
 import { $, showToast } from './ui.js';
-import { showReading, computeHexagram } from './reading.js';
+import { computeHexagram } from '@liuyao/engine';
+import { showReading } from './reading.js';
 
 export function initHistory(playState) {
   $('histBtn').addEventListener('click', openHistory);
