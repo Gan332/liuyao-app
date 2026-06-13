@@ -43,4 +43,5 @@ dependencies {
     implementation("androidx.webkit:webkit:1.8.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("androidx.activity:activity-ktx:1.8.2")
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:gravity="center" android:orientation="vertical"
+    android:padding="16dp" android:background="@drawable/widget_background">
+    <TextView android:id="@+id/widget_symbol" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:textSize="32sp"
+        android:textStyle="bold" android:text="☰" />
+    <TextView android:id="@+id/widget_name" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:textSize="18sp"
+        android:textStyle="bold" android:layout_marginTop="4dp" android:text="乾" />
+    <TextView android:id="@+id/widget_judgment" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:textSize="13sp"
+        android:gravity="center" android:maxLines="1" android:ellipsize="end"
+        android:layout_marginTop="2dp" android:text="天行健，君子以自强不息。" />
+    <Button android:id="@+id/widget_toss_button" android:layout_width="wrap_content"
+        android:layout_height="36dp" android:layout_marginTop="8dp"
+        android:text="再摇一卦" android:textSize="12sp"
+        style="@style/Widget.Material3.Button.TonalButton" />
+</LinearLayout>

@@ -393,6 +393,7 @@ function initTheme(){
 }
 function setTheme(t){
   document.documentElement.setAttribute('data-theme',t);
+          if (typeof LiuyaoBridge !== 'undefined') LiuyaoBridge.onThemeChanged(t);
   $('dmBtn').textContent=t==='dark'?'☀️':'🌙';
   localStorage.setItem('liuyao_theme',t)
 }
@@ -557,6 +558,8 @@ function toss(){
     const res=ce.map(()=>Math.random()>.5?1:0);
     const val=detLine(res);st.lines.push(val);
     playCoin();
+          if (typeof Android !== 'undefined') Android.vibrate('coin');
+          if (typeof LiuyaoBridge !== 'undefined') LiuyaoBridge.onThemeChanged(document.documentElement.getAttribute('data-theme')||'light');
     res.forEach((r,i)=>{const el=ce[i];el.className="coin "+(r?"heads":"tails");el.textContent=r?"⚭":"⚮"});
     const yN=LN[st.step]+'爻';
     tr.textContent='得 '+yN+'：'+LV[val]+' ('+LM[val]+')';
@@ -659,6 +662,7 @@ function showRd(){
   si.textContent=hasCh?(lt.filter(t=>t==='ch').length+'爻动·解卦'):'静卦·解卦';
   window.scrollTo({top:0,behavior:'smooth'});
   playHx()
+          if (typeof Android !== 'undefined') Android.vibrate('heavy');
 }
 function reset(){
   st.lines=[];st.step=0;st.phase='toss';st.busy=false;
