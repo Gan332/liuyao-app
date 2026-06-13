@@ -1,0 +1,195 @@
+/* Professional reading panel — 专业排盘 */
+.pro-panel {
+  margin-top: 8px;
+}
+
+.pro-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pro-header-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--label);
+}
+
+.pro-date {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--tl);
+  background: var(--bg);
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* Single-line compact format */
+.pro-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--sep);
+  font-size: 13px;
+}
+
+.pro-line:last-child {
+  border-bottom: none;
+}
+
+.pro-line-pos {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--tl);
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.pro-liushou {
+  font-size: 11px;
+  font-weight: 600;
+  width: 44px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* 六兽 colors */
+.pro-liushou.ls-0 { color: #28a745; }  /* 青龙 — 木绿 */
+.pro-liushou.ls-1 { color: #dc3545; }  /* 朱雀 — 火红 */
+.pro-liushou.ls-2 { color: #d4a017; }  /* 勾陈 — 土黄 */
+.pro-liushou.ls-3 { color: #8e44ad; }  /* 螣蛇 — 土紫 */
+.pro-liushou.ls-4 { color: #7f8c8d; }  /* 白虎 — 金白/灰 */
+.pro-liushou.ls-5 { color: #2471a3; }  /* 玄武 — 水蓝 */
+
+[data-theme="dark"] .pro-liushou.ls-0 { color: #58d68d; }
+[data-theme="dark"] .pro-liushou.ls-1 { color: #e74c3c; }
+[data-theme="dark"] .pro-liushou.ls-4 { color: #aab7b8; }
+
+.pro-najia {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sl);
+  width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+  font-feature-settings: "palt";
+}
+
+.pro-line-yao {
+  width: 56px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pro-line-yao .ys {
+  width: 56px;
+  height: 4px;
+  background: var(--label);
+  border-radius: 2px;
+}
+
+.pro-line-yao .yb {
+  display: flex;
+  gap: 8px;
+  width: 56px;
+}
+
+.pro-line-yao .yb span {
+  flex: 1;
+  height: 4px;
+  background: var(--label);
+  border-radius: 2px;
+}
+
+.pro-line-yao .ych {
+  opacity: 0.55;
+}
+
+.pro-line-yao .ych.ys { background: var(--primary); }
+.pro-line-yao .ych .yb span { background: var(--primary); }
+.pro-line-yao .ych::after {
+  content: '●';
+  font-size: 8px;
+  color: var(--primary);
+  position: absolute;
+  margin-left: 2px;
+}
+
+.pro-shiying {
+  font-size: 10px;
+  font-weight: 700;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.pro-shiying.shi {
+  color: #e74c3c;
+}
+
+.pro-shiying.ying {
+  color: var(--primary);
+}
+
+.pro-wx {
+  font-size: 10px;
+  font-weight: 700;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+  border-radius: 4px;
+  padding: 1px 0;
+}
+
+.pro-wx.wx-0 { background: #d5f5e3; color: #1e8449; }  /* 旺 */
+.pro-wx.wx-1 { background: #fdebd0; color: #b9770e; }  /* 相 */
+.pro-wx.wx-2 { background: #ebedef; color: #7f8c8d; }  /* 休 */
+.pro-wx.wx-3 { background: #f5b7b1; color: #922b21; }  /* 囚 */
+.pro-wx.wx-4 { background: #2c3e50; color: #ecf0f1; }  /* 死 */
+
+[data-theme="dark"] .pro-wx.wx-0 { background: #1a3c2a; color: #58d68d; }
+[data-theme="dark"] .pro-wx.wx-1 { background: #3a2e1a; color: #f8c471; }
+[data-theme="dark"] .pro-wx.wx-2 { background: #2a2a2e; color: #aab7b8; }
+[data-theme="dark"] .pro-wx.wx-3 { background: #4a1a1a; color: #f1948a; }
+[data-theme="dark"] .pro-wx.wx-4 { background: #1a1a2e; color: #85c1e9; }
+
+.pro-value {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--tl);
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Legend row */
+.pro-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 0 4px;
+  font-size: 10px;
+  color: var(--tl);
+  border-top: 1px dashed var(--sep);
+  margin-top: 4px;
+}
+
+.pro-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.pro-legend .legend-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}

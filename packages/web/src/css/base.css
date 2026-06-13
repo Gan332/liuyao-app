@@ -7,5 +7,5 @@ body{min-height:100vh;padding-top:calc(12px + var(--st));padding-bottom:calc(40p
 .anim{animation:fi .4s ease forwards;opacity:0}
 @keyframes fi{to{opacity:1;transform:translateY(0)}}
 .anim.af{transform:translateY(8px)}
-.ad1{animation-delay:.08s}.ad2{animation-delay:.16s}.ad3{animation-delay:.24s}.ad4{animation-delay:.32s}
+.ad1{animation-delay:.08s}.ad2{animation-delay:.16s}.ad3{animation-delay:.24s}.ad4{animation-delay:.32s}.ad5{animation-delay:.40s}
 @media(max-width:380px){.nav-t{font-size:24px}.hx-zh{font-size:32px}.c{padding:0 12px}}
