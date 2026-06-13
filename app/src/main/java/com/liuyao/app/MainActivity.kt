@@ -1,5 +1,5 @@
 package com.liuyao.app
-
+import androidx.core.splashscreen.SplashScreen
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Build
@@ -15,7 +15,7 @@ import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity() {
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var swipeRefresh: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        SplashScreen.installSplashScreen(this)
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
