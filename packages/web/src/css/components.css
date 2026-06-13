@@ -19,6 +19,7 @@
 .hist-name{font-size:15px;font-weight:600;color:var(--label)}
 .hist-date{font-size:11px;color:var(--tl);margin-top:2px}
 .hist-note{font-size:12px;color:var(--sl);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-ganzhi{font-size:11px;color:var(--primary);margin-top:1px;font-weight:500}
 .hist-empty{padding:40px 20px;text-align:center;color:var(--tl);font-size:14px;line-height:1.6}
 .hist-clear{background:var(--card);color:#ff3b30;border:.5px solid #ff3b30;padding:5px 12px;border-radius:16px;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s}
 .hist-clear:hover{background:#fff0f0}

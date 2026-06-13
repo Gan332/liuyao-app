@@ -1,6 +1,6 @@
 import { loadHistory, saveHistory, removeEntry, clearAll } from './storage.js';
 import { $, showToast } from './ui.js';
-import { computeHexagram } from '@liuyao/engine';
+import { computeHexagram, getFullDateStemBranch } from '@liuyao/engine';
 import { showReading } from './reading.js';
 
 export function initHistory(playState) {
@@ -19,6 +19,11 @@ export function initHistory(playState) {
 
 export function addHistoryEntry(playState, lines, note, hexagram, changingHexagram) {
   const hx = computeHexagram(lines);
+  const sb = getFullDateStemBranch(new Date());
+
+  const lt = lines.map(v => v === 6 || v === 9 ? 'ch' : 'st');
+  const chCount = lt.filter(t => t === 'ch').length;
+
   const entry = {
     id: Date.now(),
     lines: [...lines],
@@ -28,7 +33,11 @@ export function addHistoryEntry(playState, lines, note, hexagram, changingHexagr
     ts: Date.now(),
     date: new Date().toLocaleString('zh-CN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
     hxName: hx ? hx.zh : '?',
-    hxSym: hx ? hx.sym : '䷀'
+    hxSym: hx ? hx.sym : '䷀',
+    // Professional data
+    ganzhi: sb.formatted.year + ' ' + sb.formatted.month + ' ' + sb.formatted.day,
+    chCount,
+    isStatic: chCount === 0,
   };
   playState.history.unshift(entry);
   if (playState.history.length > 100) playState.history.length = 100;
@@ -60,8 +69,9 @@ export function renderHistory(playState) {
     `<div class="hist-item" data-idx="${i}">
       <div class="hist-sym">${e.hxSym || '䷀'}</div>
       <div class="hist-info">
-        <div class="hist-name">${e.hxName || '?'}</div>
+        <div class="hist-name">${e.hxName || '?'} ${e.isStatic ? '· 静卦' : '· ' + e.chCount + '爻动'}</div>
         <div class="hist-date">${e.date || new Date(e.ts).toLocaleString('zh-CN')}</div>
+        ${e.ganzhi ? `<div class="hist-ganzhi">${e.ganzhi}</div>` : ''}
         ${e.note ? `<div class="hist-note">${e.note}</div>` : ''}
       </div>
       <button class="hist-del" data-id="${e.id}" style="background:none;border:none;color:#ff3b30;font-size:16px;cursor:pointer;padding:4px">✕</button>
