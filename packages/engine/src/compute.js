@@ -11,6 +11,7 @@ export function computeHexagram(lines) {
 
 export function computeChangedHexagram(lines) {
   const lt = lines.map(v => v === 6 || v === 9 ? 'ch' : 'st');
+  if (!lt.some(t => t === 'ch')) return undefined;
   const lb = lines.map(v => (v === 7 || v === 9) ? 1 : 0);
   const cB = lb.map((b, i) => lt[i] === 'ch' ? 1 - b : b);
   const clB = [cB[2], cB[1], cB[0]];
