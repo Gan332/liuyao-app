@@ -31,10 +31,8 @@ jobs:
       - name: 设置 Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: 安装并缓存 Gradle
+      - name: 缓存 Gradle
         uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: 8.2
 
       - name: 注入签名密钥（Release）
         if: ${{ github.event.inputs.build_type == 'release' }}
@@ -46,7 +44,9 @@ jobs:
           fi
 
       - name: 构建 APK
-        run: gradle assembleDebug --no-daemon --stacktrace
+        run: |
+          TYPE=${{ github.event.inputs.build_type || 'debug' }}
+          ./gradlew "assemble${TYPE^}" --no-daemon --stacktrace
 
       - name: 上传 APK
         uses: actions/upload-artifact@v4
