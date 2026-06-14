@@ -76,11 +76,12 @@ jobs:
       - name: 构建 Debug APK
         working-directory: liuyao-app
         run: |
-          echo "sdk.dir=$ANDROID_HOME" > local.properties
-          echo "ANDROID_HOME=$ANDROID_HOME"
+          SDK="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          echo "sdk.dir=$SDK" > local.properties
+          echo "ANDROID_HOME=$SDK"
           echo "JAVA_HOME=$JAVA_HOME"
-          ls -d "$ANDROID_HOME/platforms/"* 2>/dev/null || echo "no platforms"
-          ls -d "$ANDROID_HOME/build-tools/"* 2>/dev/null || echo "no build-tools"
+          ls -la "$SDK/platforms/" 2>/dev/null || echo "NO PLATFORMS DIR"
+          ls -la "$SDK/build-tools/" 2>/dev/null || echo "NO BUILD-TOOLS DIR"
           chmod +x gradlew
           ./gradlew assembleDebug --stacktrace --no-daemon
 
