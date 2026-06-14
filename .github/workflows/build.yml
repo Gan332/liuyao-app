@@ -76,8 +76,13 @@ jobs:
       - name: 构建 Debug APK
         working-directory: liuyao-app
         run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "JAVA_HOME=$JAVA_HOME"
+          ls -d "$ANDROID_HOME/platforms/"* 2>/dev/null || echo "no platforms"
+          ls -d "$ANDROID_HOME/build-tools/"* 2>/dev/null || echo "no build-tools"
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace
+          ./gradlew assembleDebug --stacktrace --no-daemon
 
       - name: 上传 APK
         uses: actions/upload-artifact@v4
