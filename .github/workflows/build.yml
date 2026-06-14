@@ -20,6 +20,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # ---- 前端构建 (Vite) ----
+      - name: 配置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 构建前端 (Vite)
+        run: npm run build:web
+
+      # ---- Android 构建 ----
       - name: 配置 JDK 17
         uses: actions/setup-java@v4
         with:
@@ -27,20 +42,7 @@ jobs:
           distribution: temurin
 
       - name: 配置 Android SDK
-        run: |
-          SDK_MANAGER=$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager
-          if [ -f "$SDK_MANAGER" ]; then
-            yes | $SDK_MANAGER --licenses > /dev/null 2>&1 || true
-            $SDK_MANAGER "platforms;android-34" "build-tools;34.0.0" > /dev/null 2>&1 || true
-          fi
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "SDK ready"
-
-      - name: 复制应用到 assets
-        run: |
-          mkdir -p liuyao-app/app/src/main/assets
-          cp liuyao.html liuyao-app/app/src/main/assets/index.html
-          echo "index.html copied ($(wc -c < liuyao-app/app/src/main/assets/index.html) bytes)"
+        uses: android-actions/setup-android@v3
 
       - name: 可选 - 更新版本号
         if: github.event_name == 'workflow_dispatch'
@@ -49,15 +51,11 @@ jobs:
           sed -i "s/versionName = \".*\"/versionName = \"$V\"/" liuyao-app/app/build.gradle.kts
           echo "versionName -> $V"
 
-      - name: 生成 Gradle Wrapper
-        run: cd liuyao-app && gradle wrapper --gradle-version 8.5
-
       - name: 构建 Debug APK
         run: |
           cd liuyao-app
           chmod +x gradlew
           ./gradlew assembleDebug
-          echo "=== APK 构建完成 ==="
 
       - name: 上传 APK
         uses: actions/upload-artifact@v4
