@@ -58,14 +58,17 @@ jobs:
           distribution: temurin
 
       - name: 配置 Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: 安装 SDK 组件 (platform-34 + build-tools)
         run: |
-          yes | "$ANDROID_HOME"/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
-          "$ANDROID_HOME"/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" > /dev/null 2>&1 || true
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          ls -d "$ANDROID_HOME"/platforms/android-34 2>/dev/null && echo "platform-34 OK" || echo "platform-34 MISSING"
+          SDK=/usr/local/lib/android/sdk
+          echo "ANDROID_HOME=$SDK" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$SDK" >> $GITHUB_ENV
+          # Accept licenses
+          yes | "$SDK/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
+          # Install required components
+          "$SDK/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0" 2>&1
+          echo "SDK path: $SDK"
+          ls -d "$SDK/platforms/"* 2>/dev/null || echo "NO PLATFORMS"
+          ls -d "$SDK/build-tools/"* 2>/dev/null || echo "NO BUILD-TOOLS"
 
       - name: 可选 - 更新版本号
         if: github.event_name == 'workflow_dispatch'
@@ -75,15 +78,22 @@ jobs:
 
       - name: 构建 Debug APK
         working-directory: liuyao-app
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
+          ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
         run: |
-          SDK="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
-          echo "sdk.dir=$SDK" > local.properties
-          echo "ANDROID_HOME=$SDK"
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "=== ENV ==="
+          echo "ANDROID_HOME=$ANDROID_HOME"
           echo "JAVA_HOME=$JAVA_HOME"
-          ls -la "$SDK/platforms/" 2>/dev/null || echo "NO PLATFORMS DIR"
-          ls -la "$SDK/build-tools/" 2>/dev/null || echo "NO BUILD-TOOLS DIR"
+          echo "=== SDK ==="
+          ls -la "$ANDROID_HOME/platforms/"
+          ls -la "$ANDROID_HOME/build-tools/"
+          echo "=== BUILD ==="
           chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace --no-daemon
+          ./gradlew assembleDebug --info --no-daemon 2>&1 | tee /tmp/gradle.log
+          echo "--- last 80 lines ---"
+          tail -80 /tmp/gradle.log
 
       - name: 上传 APK
         uses: actions/upload-artifact@v4
