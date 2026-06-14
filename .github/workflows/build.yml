@@ -28,11 +28,27 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
 
-      - name: 安装依赖
+      - name: 安装依赖 (root workspace)
         run: npm ci
 
       - name: 构建前端 (Vite)
-        run: npm run build:web
+        working-directory: packages/web
+        run: npx vite build
+
+      - name: 同步构建产物到 Android assets
+        run: |
+          # Vite outDir -> ../../dist from packages/web = root dist/
+          cp dist/index.html liuyao.html
+          rm -rf assets
+          cp -r dist/assets .
+          mkdir -p liuyao-app/app/src/main/assets
+          cp dist/index.html liuyao-app/app/src/main/assets/index.html
+          rm -rf liuyao-app/app/src/main/assets/assets
+          mkdir -p liuyao-app/app/src/main/assets/assets
+          cp -r dist/assets/* liuyao-app/app/src/main/assets/assets/
+          echo "=== Assets synced ==="
+          echo "liuyao.html: $(wc -c < liuyao.html) bytes"
+          ls -la liuyao-app/app/src/main/assets/assets/
 
       # ---- Android 构建 ----
       - name: 配置 JDK 17
@@ -49,11 +65,10 @@ jobs:
         run: |
           V="${{ github.event.inputs.version }}"
           sed -i "s/versionName = \".*\"/versionName = \"$V\"/" liuyao-app/app/build.gradle.kts
-          echo "versionName -> $V"
 
       - name: 构建 Debug APK
+        working-directory: liuyao-app
         run: |
-          cd liuyao-app
           chmod +x gradlew
           ./gradlew assembleDebug
 
