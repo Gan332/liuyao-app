@@ -60,6 +60,13 @@ jobs:
       - name: 配置 Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: 安装 SDK 组件 (platform-34 + build-tools)
+        run: |
+          yes | "$ANDROID_HOME"/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
+          "$ANDROID_HOME"/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" > /dev/null 2>&1 || true
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          ls -d "$ANDROID_HOME"/platforms/android-34 2>/dev/null && echo "platform-34 OK" || echo "platform-34 MISSING"
+
       - name: 可选 - 更新版本号
         if: github.event_name == 'workflow_dispatch'
         run: |
@@ -70,7 +77,7 @@ jobs:
         working-directory: liuyao-app
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --stacktrace
 
       - name: 上传 APK
         uses: actions/upload-artifact@v4
